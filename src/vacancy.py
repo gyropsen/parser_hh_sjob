@@ -3,15 +3,18 @@ class Vacancy:
     Класс для работы с вакансиями
     """
 
-    def __init__(self, _id_: int = None, profession: str = None, address: str = None, currency: str = None,
-                 client_name: str = None, link: str = None, payment_from: int = None, payment_to: int = None):
+    def __init__(self, _id_: int = None, profession: str = None, requirement: str = None, address: str = None, currency: str = None,
+                 client_name: str = None, link_client: str = None, link: str = None, payment_from: int = None,
+                 payment_to: int = None):
 
         # Инициализируем класс и верифицируем
         self._id_ = _id_
         self.profession = profession
+        self.requirement = requirement
         self.address = address
         self.currency = currency
         self.client_name = client_name
+        self.link_client = link_client
         self.link = link
         self.payment_from = payment_from
         self.payment_to = payment_to
