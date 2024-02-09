@@ -4,16 +4,18 @@ from src.vacancy import Vacancy
 
 @pytest.fixture
 def vacancies():
-    vc1 = Vacancy(1, "Data Analyst", "Сказочное Бали", "RUB",
-                  "Isixi Private Limited",
+    vc1 = Vacancy("Data Analyst", "работать", "Сказочное Бали",
+                  "RUB", "Isixi Private Limited", "https://www.link_client.com",
                   "https://www.jobstreet.co.id/job/72697729?type=standard&ref=search-"
-                  "standalone#sol=4df3b84bef39026898b572d9d5c8201567f979c7",
-                  80_000, 0)
-    vc2 = Vacancy(2, "python backend developer", "Moscow", "RUB",
-                  "SBER", "https://www.sber.ru", 60_000, 90_000)
+                  "standalone#sol=4df3b84bef39026898b572d9d5c8201567f979c7", 80_000, 0)
 
-    vc3 = Vacancy(2, "python backend developer", "Moscow", "RUB",
-                  "SBER", "https://www.sber.ru", 0, 90_000)
+    vc2 = Vacancy("python backend developer", "а тут работать", "Moscow",
+                  "RUB", "SBER", "https://www.sber.ru", "https://www.sber.ru",
+                  60_000, 90_000)
+
+    vc3 = Vacancy("python backend developer", "работать",
+                  "Moscow", "RUB", "SBER", "https://www.sber.ru",
+                  "https://www.sber.ru", 0, 90_000)
 
     return vc1, vc2, vc3
 

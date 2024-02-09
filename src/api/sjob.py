@@ -30,21 +30,21 @@ class SuperJob(API):
         :param vacancies: список словаря с вакансиями
         :return: список словаря с вакансиями
         """
-        if not vacancies:
-            return
         vacancies_list = []
-        for i, vacancy in enumerate(vacancies):
-            data_vacancy = {"_id_": i,
-                            "profession": vacancy["profession"],
-                            "requirement": vacancy["candidat"].replace("\n", ""),
-                            "address": vacancy["address"],
-                            "currency": vacancy["currency"],
-                            "client_name": vacancy["client"].get("title"),
-                            "link_client": vacancy["client"].get("url"),
-                            "link": vacancy["link"],
-                            "payment_from": vacancy["payment_from"],
-                            "payment_to": vacancy["payment_to"]
-                            }
+        if not vacancies:
+            return vacancies_list
+        for vacancy in vacancies:
+            data_vacancy = {
+                "profession": vacancy["profession"],
+                "requirement": vacancy["candidat"].replace("\n", ""),
+                "address": vacancy["address"],
+                "currency": vacancy["currency"],
+                "client_name": vacancy["client"].get("title"),
+                "link_client": vacancy["client"].get("url"),
+                "link": vacancy["link"],
+                "payment_from": vacancy["payment_from"],
+                "payment_to": vacancy["payment_to"]
+            }
             vacancies_list.append(data_vacancy)
         return vacancies_list
 
