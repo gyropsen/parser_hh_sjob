@@ -9,6 +9,7 @@ class HeadHunter(API):
     """
     Класс для работы с вакансиями HeadHunter
     """
+
     def get_vacancies(self, text: str):
         """
         Получение вакансий
@@ -41,24 +42,27 @@ class HeadHunter(API):
         :return: список словаря с вакансиями
         """
         vacancies_list = []
-        for i, vacancy in enumerate(vacancies):
-            data_vacancy = {"_id_": i,
-                            "profession": vacancy["name"],
-                            "requirement": vacancy["snippet"]["requirement"]
-                            .replace("<highlighttext>", "").replace("</highlighttext>", "")
-                            if vacancy["snippet"]["requirement"] else None,
-                            "address": vacancy["address"]["raw"] if vacancy["address"] else None,
-                            "currency": vacancy["salary"]["currency"] if vacancy["salary"] else None,
-                            "client_name": vacancy["employer"]["name"],
-                            "link_client": vacancy["employer"]["alternate_url"]
-                            if vacancy["employer"].get("alternate_url") else None,
-                            "link": vacancy["alternate_url"],
-                            "payment_from": vacancy["salary"]["from"] if vacancy["salary"] else 0,
-                            "payment_to": vacancy["salary"]["to"] if vacancy["salary"] else 0,
-                            }
+
+        if not vacancies:
+            return vacancies_list
+        for vacancy in vacancies:
+            data_vacancy = {
+                "profession": vacancy["name"],
+                "requirement": vacancy["snippet"]["requirement"]
+                .replace("<highlighttext>", "").replace("</highlighttext>", "")
+                if vacancy["snippet"]["requirement"] else None,
+                "address": vacancy["address"]["raw"] if vacancy["address"] else None,
+                "currency": vacancy["salary"]["currency"] if vacancy["salary"] else None,
+                "client_name": vacancy["employer"]["name"],
+                "link_client": vacancy["employer"]["alternate_url"]
+                if vacancy["employer"].get("alternate_url") else None,
+                "link": vacancy["alternate_url"],
+                "payment_from": vacancy["salary"]["from"] if vacancy["salary"] else 0,
+                "payment_to": vacancy["salary"]["to"] if vacancy["salary"] else 0,
+            }
             vacancies_list.append(data_vacancy)
         return vacancies_list
 
 
 if __name__ == '__main__':
-    print(HeadHunter().get_vacancies("python"))
+    print(HeadHunter().get_vacancies("повар"))
