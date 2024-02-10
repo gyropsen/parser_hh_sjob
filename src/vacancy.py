@@ -34,7 +34,7 @@ class Vacancy:
         elif self.payment_to == 0:
             self.average_payment = self.payment_from
         else:
-            self.average_payment = (self.payment_to + self.payment_from) / 2
+            self.average_payment = (int(self.payment_to) + int(self.payment_from)) / 2
 
     def verification(self):
         """

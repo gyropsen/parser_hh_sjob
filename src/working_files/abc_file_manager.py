@@ -6,11 +6,15 @@ class WorkingFiles(ABC):
     path = Path(Path(__file__).parent.parent.parent, "data", "vacancies.csv")
 
     @abstractmethod
+    def create_file(self) -> None:
+        pass
+
+    @abstractmethod
     def in_file(self, vacancies_list: list[dict]) -> None:
         pass
 
     @abstractmethod
-    def out_file(self, keyword=None) -> list[dict]:
+    def out_file(self) -> list[dict]:
         pass
 
     @abstractmethod

@@ -36,18 +36,18 @@ class SuperJob(API):
         for vacancy in vacancies:
             data_vacancy = {
                 "profession": vacancy["profession"],
-                "requirement": vacancy["candidat"].replace("\n", ""),
-                "address": vacancy["address"],
+                "requirement": vacancy["candidat"].replace("\n", "") if vacancy["candidat"] else "",
+                "address": vacancy.get("address") if vacancy.get("address") else "",
                 "currency": vacancy["currency"],
                 "client_name": vacancy["client"].get("title"),
-                "link_client": vacancy["client"].get("url"),
+                "link_client": vacancy["client"].get("url") if vacancy["client"].get("url") else "",
                 "link": vacancy["link"],
                 "payment_from": vacancy["payment_from"],
-                "payment_to": vacancy["payment_to"]
+                "payment_to": vacancy["payment_to"] if vacancy["payment_to"] else 0
             }
             vacancies_list.append(data_vacancy)
         return vacancies_list
 
 
 if __name__ == '__main__':
-    print(SuperJob().get_vacancies("Повар"))
+    print(SuperJob().get_vacancies("Python backend developer"))
