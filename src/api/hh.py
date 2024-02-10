@@ -50,19 +50,23 @@ class HeadHunter(API):
                 "profession": vacancy["name"],
                 "requirement": vacancy["snippet"]["requirement"]
                 .replace("<highlighttext>", "").replace("</highlighttext>", "")
-                if vacancy["snippet"]["requirement"] else None,
-                "address": vacancy["address"]["raw"] if vacancy["address"] else None,
-                "currency": vacancy["salary"]["currency"] if vacancy["salary"] else None,
+                if vacancy["snippet"]["requirement"] else "",
+                "address": vacancy["address"]["raw"] if vacancy.get("address") == "None" else "",
+                "currency": vacancy["salary"]["currency"] if vacancy["salary"] else "",
                 "client_name": vacancy["employer"]["name"],
-                "link_client": vacancy["employer"]["alternate_url"]
-                if vacancy["employer"].get("alternate_url") else None,
+                "link_client": vacancy["employer"]["alternate_url"] if vacancy["employer"].get("alternate_url") else ""
+                if vacancy["employer"].get("alternate_url") else "",
                 "link": vacancy["alternate_url"],
-                "payment_from": vacancy["salary"]["from"] if vacancy["salary"] else 0,
-                "payment_to": vacancy["salary"]["to"] if vacancy["salary"] else 0,
             }
+            if vacancy["salary"]:
+                data_vacancy["payment_from"] = vacancy["salary"]["from"] if vacancy["salary"]["from"] else 0
+                data_vacancy["payment_to"] = vacancy["salary"]["to"] if vacancy["salary"]["to"] else 0
+            else:
+                data_vacancy["payment_from"] = 0
+                data_vacancy["payment_to"] = 0
             vacancies_list.append(data_vacancy)
         return vacancies_list
 
 
 if __name__ == '__main__':
-    print(HeadHunter().get_vacancies("повар"))
+    print(HeadHunter().get_vacancies("Python backend developer"))
